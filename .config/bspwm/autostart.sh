@@ -6,6 +6,8 @@ function run {
 	fi
 }
 
+#xss-lock -- ~/.config/bspwm/scripts/lock
+
 #Find out your monitor name with xrandr or arandr (save and you get this line)
 #xrandr --output VGA-1 --primary --mode 1360x768 --pos 0x0 --rotate normal
 #xrandr --output DP2 --primary --mode 1920x1080 --rate 60.00 --output LVDS1 --off &
@@ -51,6 +53,7 @@ picom --config $HOME/.config/bspwm/picom.conf &
 /usr/lib/xfce4/notifyd/xfce4-notifyd &
 run volumeicon &
 run solaar &
+#run LD_PRELOAD=/usr/local/lib/spotify-adblock.so spotify &
 #nitrogen --restore &
 #run caffeine &
 #run vivaldi-stable &

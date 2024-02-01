@@ -6,3 +6,5 @@ alias ls="exa -a --icons"
 alias lss="exa -lah --icons"
 
 pfetch
+
+starship init fish | source

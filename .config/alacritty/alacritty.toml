@@ -30,7 +30,7 @@ background = "#0e0e0e"
 foreground = "#d5d8da"
 
 [font.normal]
-family = "MonoLisa"
+family = "JetBrainsMono Nerd Font"
 
 [window]
 dynamic_padding = true

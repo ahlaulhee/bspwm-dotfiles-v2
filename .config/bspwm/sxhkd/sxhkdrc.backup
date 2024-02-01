@@ -1,6 +1,6 @@
-#|||----- Applications -----|||#
+### wm independent hotkeys
 
-# Terminal
+# terminal emulator
 super + Return
 	alacritty
 
@@ -8,103 +8,107 @@ super + Return
 super + shift + Return
   bspc rule -a Alacritty -o state=floating follow=on center=true rectangle=490x310+0+0 && alacritty
 
-# Browser
-super + b
+# browser
+super + f
   firefox
 
-# VSCode
+# code
 super + v
   code
 
-# File Manager
+# file manager
 super + n
   nautilus
 
-# Color Picker
+# color picker
 super + shift + p
   xcolor --format hex --preview-size 255 --scale 10 | xclip -selection clipboard
 
-# Screenshots
+# screenshots
 super + shift + s
   maim -s | tee ~/Screenshots/$(date +%F-%T).png | xclip -selection clipboard -t image/png
 
-# Program Launcher
+# program launcher
 super + r
 	rofi -show drun
 
-# Active Windows
+# active windows
 alt + t
   rofi -show window
 
-# Emoji rofi
-super + period 
-  rofi -modi emoji -show emoji -kb-custom-1 Ctrl+C
-
-#|||----- System Keybindings -----|||#
-
-# power off,reboot,log out,lock
-super + ctrl + alt + {p,r,s,l}
-    {systemctl poweroff,systemctl reboot, ~/.config/bspwm/scripts/lock && systemctl suspend,~/.config/bspwm/scripts/lock}
-
-# RELOAD SXHKD
+# make sxhkd reload its configuration files:
 super + Escape
 	pkill -USR1 -x sxhkd
 
-# Quit/Restart BSPWM
+### bspwm hotkeys
+
+# quit/restart bspwm
 super + alt + {q,r}
 	bspc {quit,wm -r}
 
-# Close and Kill
+# screenlock
+super + ctrl + l
+  i3lock -t -i ~/Wallpapers/28.png
+
+# close and kill
 super + {_,shift + }w
 	bspc node -{c,k}
 
-# Alternate between the Tiled and Monocle Layout
+# alternate between the tiled and monocle layout
 super + m
 	bspc desktop -l next
 
-#|||----- States/Flags -----|||#
+# send the newest marked node to the newest preselected node
+super + y
+	bspc node newest.marked.local -n newest.!automatic.local
 
-# Set Window State
+# swap the current node and the biggest window
+super + g
+	bspc node -s biggest.window
+
+### state/flags
+
+# set the window state
 super + {t,shift + t,s,f}
 	bspc node -t {tiled,pseudo_tiled,floating,fullscreen}
 
-# make node stick on all desktops
-#super + ctrl + s
-    #bspc node --flag sticky
-
-# Set Node Flags
+# set the node flags
 super + ctrl + {m,x,y,z}
 	bspc node -g {marked,locked,sticky,private}
 
-#|||----- Focus/Swap -----|||#
+### focus/swap
 
-# Focus the node in the given direction
+# focus the node in the given direction
 super + {_,shift + }{h,j,k,l}
 	bspc node -{f,s} {west,south,north,east}
 
-# Focus the next/previous window in the current desktop
+# focus the node for the given path jump
+super + {p,b,comma,period}
+	bspc node -f @{parent,brother,first,second}
+
+# focus the next/previous window in the current desktop
 super + {_,shift + }c
 	bspc node -f {next,prev}.local.!hidden.window
 
-# Focus the next/previous desktop in the current monitor
+# focus the next/previous desktop in the current monitor
 super + bracket{left,right}
 	bspc desktop -f {prev,next}.local
 
-# Focus the last node/desktop
+# focus the last node/desktop
 super + {grave,Tab}
 	bspc {node,desktop} -f last
 
-# Focus the older or newer node in the focus history
+# focus the older or newer node in the focus history
 super + {o,i}
 	bspc wm -h off; \
 	bspc node {older,newer} -f; \
 	bspc wm -h on
 
-# Focus or send to the given desktop
+# focus or send to the given desktop
 super + {_,shift + }{1-9,0}
 	bspc {desktop -f,node -d} '^{1-9,10}'
 
-#|||----- Move/Resize -----|||#
+### move/resize
 
 # expand a window by moving one of its side outward
 super + alt + {h,j,k,l}
@@ -117,7 +121,3 @@ super + alt + shift + {h,j,k,l}
 # move a floating window
 super + {Left,Down,Up,Right}
 	bspc node -v {-20 0,0 20,0 -20,20 0}
-
-# Equalize
-super + equal
-  bspc node @/ --equalize

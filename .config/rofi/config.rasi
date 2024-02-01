@@ -1,7 +1,8 @@
+/* font: "Sarasa Nerd Font 14"; */
 configuration{
     modi: "run,drun,window";
     lines: 5;
-    font: "Sarasa Nerd Font 14";
+    font: "FiraCode Nerd Font 12";
     show-icons: true;
     icon-theme: "Oranchelo";
     terminal: "st";
